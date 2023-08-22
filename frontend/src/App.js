@@ -4,7 +4,7 @@ import ChatContaner from './components/ChatContaner';
 import Header from './components/Header';
 import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('https://publicapp-4395fe820af6.herokuapp.com/');
 function App() {
   const [loading, setLoading] = useState(true);
 
@@ -18,14 +18,14 @@ function App() {
 
   if (user.token) {
     return (
-      <main className=' relative '>
+      <main className='relative '>
         <Header />
         <ChatContaner socket={socket} />
       </main>
     );
   }
   return (
-    <main className=' relative '>
+    <main className='relative '>
       <AuthHeader />
       <Auth />
     </main>
