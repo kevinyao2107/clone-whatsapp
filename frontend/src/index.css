@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #e2e1dd;
+}
+main {
+  min-height: 100vh;
+}
+
+.left-chat {
+  background-image: url('./public/images/bg2.png');
+  grid-template-rows: 6.2% 1fr 6.2%;
+}
+
+.right-chat {
+  grid-template-rows: 12.5% 1fr;
+}
+
+.user-list {
+  overflow-y: scroll;
+}
+
+.message {
+  overflow-y: scroll;
+}
