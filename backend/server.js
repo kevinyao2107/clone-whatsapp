@@ -1,3 +1,4 @@
+import path from 'path';
 import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv';
@@ -5,7 +6,7 @@ import { Server } from 'socket.io';
 import db from './config/db.js';
 import messageRoutes from './routes/messageRoutes.js';
 import userRoutes from './routes/userRoutes.js';
-import path from 'path';
+
 const app = express();
 
 const server = http.createServer(app);
@@ -17,18 +18,6 @@ app.use(express.json());
 
 app.use('/api/messages', messageRoutes);
 app.use('/api/users', userRoutes);
-const __dirname = path.resolve();
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')));
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {
-    res.send('Api envoyé');
-  });
-}
 
 const connectedClients = [];
 
@@ -74,6 +63,19 @@ io.on('connection', (socket) => {
     }
   });
 });
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {
+    res.send('Api envoyé');
+  });
+}
 
 const port = 5000;
 server.listen(port, () => {
